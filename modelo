@@ -1,0 +1,31 @@
+digraph ModeloDatosSuministros {
+	fontname=Arial fontsize=10 rankdir=LR
+	Categoria [label="CATEGORIA
+---------------
+categoria_id (PK)
+nombre" shape=box]
+	Pieza [label="PIEZA
+---------------
+pieza_id (PK)
+nombre
+color
+precio
+categoria_id (FK)" shape=box]
+	Proveedor [label="PROVEEDOR
+---------------
+proveedor_id (PK)
+nombre
+direccion
+ciudad
+provincia" shape=box]
+	Suministro [label="SUMINISTRO
+---------------
+suministro_id (PK)
+proveedor_id (FK)
+pieza_id (FK)
+fecha_suministro
+cantidad" shape=box]
+	Categoria -> Pieza [label="1 : N"]
+	Pieza -> Suministro [label="1 : N"]
+	Proveedor -> Suministro [label="1 : N"]
+}
