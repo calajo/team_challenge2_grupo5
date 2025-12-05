@@ -1,0 +1,85 @@
+1. Introducción al proyecto
+"En esta segunda parte del Team Challenge hemos trabajado en el diseño de un modelo de datos para gestionar el control de suministros entre proveedores y piezas.
+El objetivo era crear una base de datos que permitiera saber qué proveedores suministran cada pieza, en qué fecha lo hacen y en qué cantidad.
+Este modelo es importante para garantizar la trazabilidad y el control de calidad de los componentes."
+
+
+
+
+
+2. Requisitos del problema
+"Según el enunciado, debíamos tener en cuenta varias reglas del negocio:
+Un mismo proveedor puede suministrar la misma pieza en diferentes fechas, lo que implica diferentes lotes o partidas.
+Una pieza puede ser suministrada por varios proveedores.
+De cada proveedor conocemos su código, nombre, dirección, ciudad y provincia.
+De cada pieza conocemos su código, nombre, color, precio y categoría.
+Y de cada categoría solo conocemos su código y su nombre.
+A partir de estos requisitos diseñamos nuestro modelo entidad-relación y las tablas correspondientes en SQL."
+
+
+
+
+
+ 3. Diseño del modelo de datos (ER)
+"Nuestro modelo final está compuesto por cuatro entidades principales:
+
+1. Categoría
+Representa el tipo de pieza (Electrónica, Seguridad, Mecánica…).
+ Tiene:
+id_categoria como clave primaria
+nombre
+
+2. Proveedor
+Almacena la información de cada proveedor:
+id_proveedor como clave primaria
+nombre
+direccion
+ciudad
+provincia
+
+3. Pieza
+Describe cada pieza disponible en el sistema.
+ Incluye:
+id_pieza como clave primaria
+nombre
+color (puede ser nulo)
+precio
+id_categoria como clave foránea hacia Categoría
+ Esto garantiza que cada pieza pertenece a una categoría válida.
+
+4. Suministro
+Es la tabla que relaciona proveedores y piezas.
+ Contiene:
+id_suministro como clave primaria
+id_proveedor
+id_pieza
+fecha_suministro
+cantidad
+
+Gracias a esta tabla resolvemos la relación muchos-a-muchos:
+ un proveedor puede suministrar varias piezas,
+ y una pieza puede venir de varios proveedores."
+
+
+
+
+
+ 4. Explicación de las tablas SQL creadas
+"Una vez definido el modelo, pasamos a implementarlo con SQL.
+
+Creamos las siguientes tablas:
+CATEGORIA, con su clave primaria y el nombre.
+PROVEEDOR, donde registramos toda la información del proveedor.
+PIEZA, con su clave foránea hacia CATEGORIA.
+SUMINISTRO, con dos claves foráneas: una hacia PROVEEDOR y otra hacia PIEZA.
+Cada tabla está diseñada con tipos de datos adecuados:
+ INTEGER para identificadores, TEXT para cadenas y REAL para precios."
+
+
+
+ 5. Inserción de datos sintéticos "Para comprobar que el modelo funcionaba correctamente, insertamos datos de ejemplo:
+En Categorías, añadimos cinco tipos: Electrónica, Seguridad, Mecánica, Jardín y Cocina.
+En Proveedores, registramos cinco proveedores con sus datos de contacto.
+En Piezas, insertamos cinco piezas, algunas con color y otras con NULL en ese campo.
+Por último, en Suministros, registramos ocho entregas reales indicando qué proveedor suministra cada pieza, en qué fecha y cuánta cantidad.
+Estos datos nos permitieron verificar que las claves foráneas y las relaciones estaban bien definidas."

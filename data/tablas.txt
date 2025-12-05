@@ -1,0 +1,37 @@
+-- 1. Categorías de las piezas
+CREATE TABLE CATEGORIA (
+    id_categoria INTEGER PRIMARY KEY,
+    nombre       TEXT NOT NULL
+);
+
+-- 2. Proveedores
+CREATE TABLE PROVEEDOR (
+    id_proveedor INTEGER PRIMARY KEY,
+    nombre       TEXT NOT NULL,
+    direccion    TEXT,
+    ciudad       TEXT,
+    provincia    TEXT
+);
+
+-- 3. Piezas
+CREATE TABLE PIEZA (
+    id_pieza     INTEGER PRIMARY KEY,
+    nombre       TEXT NOT NULL,
+    color        TEXT,
+    precio       REAL NOT NULL,
+    id_categoria INTEGER NOT NULL,
+    FOREIGN KEY (id_categoria) REFERENCES CATEGORIA(id_categoria)
+);
+
+-- 4. Relación proveedor–pieza (suministros)
+CREATE TABLE SUMINISTRO (
+    id_suministro   INTEGER PRIMARY KEY,
+    id_proveedor    INTEGER NOT NULL,
+    id_pieza        INTEGER NOT NULL,
+    fecha_suministro TEXT NOT NULL,
+    cantidad        INTEGER NOT NULL,
+    FOREIGN KEY (id_proveedor) REFERENCES PROVEEDOR(id_proveedor),
+    FOREIGN KEY (id_pieza)     REFERENCES PIEZA(id_pieza)
+);
+
+ 	 
